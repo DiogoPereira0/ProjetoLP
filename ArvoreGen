@@ -1,0 +1,48 @@
+import java.util.ArrayList;
+
+
+public class ArvoreGen implements Arvore{
+	public NóTree raiz;
+    @Override
+	public NóTree inserir(String nome) {
+    	if(raiz==null) {
+			raiz = new NóTree(nome);
+		} else {
+			throw new IllegalStateException();
+		}
+		
+		return raiz;
+    }
+    @Override
+    public NóTree inserir( String nome, NóTree pai ) {
+    	if(pai == null) {
+			throw new NullPointerException();
+		}
+		
+		NóTree filho = new NóTree(nome);
+		
+		pai.getFilhos().add(filho);
+		
+		return filho;
+    }
+    @Override
+	public NóTree procurar(String nome) {
+	    NóTree procura = new NóTree(nome);
+	    if (procura == raiz) {
+	    	return procura;
+	    }else{
+	    }
+	    return null;
+	}
+    @Override
+	public String Casar(String nome, String conj) {
+		NóTree Nome = procurar(nome);
+        if (Nome==null) {
+        	return "Este membro nao existe";
+        }else {
+		Nome.setPar(conj);
+		return conj;
+        }
+	}
+	
+}
