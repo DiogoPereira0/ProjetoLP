@@ -1,13 +1,7 @@
-package Trabalho;
-
-
 public interface Arvore {
-	
-	
-	
-	public NóTree inserir(String nome);
+	public void inserir(String nome);
 	public NóTree procurar(String nome);
-	public NóTree inserir( String nome, NóTree pai);
-	public String Casar (String nome, String conj);
+	public void inserir2( String nome, NóTree pai);
+	public String casar (String nome, String conj);
 
 }
