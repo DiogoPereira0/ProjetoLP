@@ -20,9 +20,15 @@ public class NóTree {
         public LinkedList<NóTree> getFilhos() {
         	return filhos;
         }
+        public NóTree() {
+        	nome=null;
+        }
         
         public NóTree(String nome) {
         	this.nome=nome;
         }
-        
+        public NóTree(Object nome) {
+        	this.nome= nome.toString();
+        }
 }
+
