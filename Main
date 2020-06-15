@@ -1,0 +1,38 @@
+import java.util.Scanner;
+public class Main {
+	public static void main(String[] args) {
+		Scanner ler= new Scanner(System.in);
+		ArvoreGen arvore = new ArvoreGen();
+		int x=1;
+		while(x!=0) {
+           System.out.println("\nPressione 1 para adicionar um nome a arvore.");
+           System.out.println("Pressione 2 para procurar por um nome");
+           System.out.println("Pressione 3 para adicionar um cônjuge");
+           System.out.println("Pressione 4 para visualizar todos os nomes na arvore");
+           System.out.println("Pressione 0 para desligar");
+        
+        	  x= ler.nextInt();
+           switch(x){
+           case 0: System.out.println("Desligando........");        	   
+           break;	   
+           case 1: System.out.println("Qual nome deseja inserir?");
+        	       String nome = ler.next();
+        	       arvore.inserir(nome);
+           break;
+           case 2: String nome3 = ler.next();
+                  arvore.procurar(nome3);
+           break;
+           case 3: System.out.println("Quem casou?");
+        	       String nome2 = ler.next();
+        	       System.out.println("Com quem casou?");
+                   String conj= ler.next();
+        	        arvore.casar(nome2, conj);
+           break;   
+           case 4: arvore.imprimir();
+           break;
+           default: System.out.println("Numero invalido");
+           break;
+           }
+          }
+	}
+}
