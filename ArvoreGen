@@ -1,48 +1,94 @@
+package Trabalho;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class ArvoreGen implements Arvore{
 	public NóTree raiz;
+	public ArvoreGen() {
+	   raiz=null;
+	}
+	public ArvoreGen(String a) {
+		raiz.setNome(a);
+	}
+	
     @Override
-	public NóTree inserir(String nome) {
+	public void inserir(String nome) {
     	if(raiz==null) {
 			raiz = new NóTree(nome);
 		} else {
-			throw new IllegalStateException();
+			inserir2(nome, raiz);
 		}
-		
-		return raiz;
     }
     @Override
-    public NóTree inserir( String nome, NóTree pai ) {
-    	if(pai == null) {
-			throw new NullPointerException();
-		}
-		
+    public void inserir2( String nome, NóTree pai ) {
+    	
 		NóTree filho = new NóTree(nome);
 		
 		pai.getFilhos().add(filho);
-		
-		return filho;
     }
     @Override
 	public NóTree procurar(String nome) {
 	    NóTree procura = new NóTree(nome);
-	    if (procura == raiz) {
-	    	return procura;
+	    if (procura.getNome() == raiz.getNome()) {
+	    	System.out.println("Nome "+procura.getNome()+" encontrado");
+	    	return raiz;
 	    }else{
-	    }
-	    return null;
-	}
+	        procurar(procura, raiz.getFilhos());
+	        return procura;
+        }   
+    }
+    public void procurar(NóTree nome, LinkedList filhos) {
+         for (int i=0; i<filhos.size();i++) {
+        	 if(nome == filhos.get(i)) {
+        		    System.out.println("Nome "+nome.getNome()+" encontrado"); 
+        		 	return;		
+        	 }else {
+        		 NóTree filhos2 = new NóTree(filhos.get(i));
+        		 procurar(nome, filhos2.getFilhos());
+        	 }
+         }
+    }
     @Override
-	public String Casar(String nome, String conj) {
-		NóTree Nome = procurar(nome);
-        if (Nome==null) {
-        	return "Este membro nao existe";
-        }else {
-		Nome.setPar(conj);
-		return conj;
-        }
-	}
-	
+	public String casar(String nome, String conj) {
+		NóTree Nome = new NóTree(nome);
+		if (Nome==raiz) {if(raiz.getPar()!=null) raiz.setPar(conj);
+		                else System.out.println("Este membro ja tem um par.");  
+		                }
+		else {
+			for(int i=0; i<raiz.getFilhos().size();i++) {
+				if (Nome==raiz.getFilhos().get(i)) {
+					if(raiz.getFilhos().get(i)!=null) raiz.getFilhos().get(i).setPar(conj);
+					else System.out.println("Este membro ja tem um par."); 
+				}
+			}
+		}
+		return conj; 
+        
+     }
+    public void imprimir() {
+    	if (raiz==null) System.out.println("Arvore vazia");
+    	else {
+    	System.out.print(raiz.getNome()+", ");
+    	if (raiz.getPar()!=null) {System.out.println("casado/a com "+raiz.getPar()+", ");}
+    	if (raiz.getFilhos()!=null){
+    		for(int i=0; i<raiz.getFilhos().size(); i++) {
+    			System.out.print(raiz.getFilhos().get(i)+", ");
+    			if (raiz.getFilhos().get(i).getPar()!=null) {System.out.println("casado/a com "+raiz.getFilhos().get(i).getPar()+", ");}
+    		}
+    		for(int n=0; n<raiz.getFilhos().size();n++) {
+    	       if(raiz.getFilhos().get(n).getFilhos()!=null) imprimir(raiz.getFilhos().get(n).getFilhos());
+    		}
+    	}
+    }
+    }
+    public void imprimir(LinkedList<NóTree> filhos) {
+    	for (int a=0; a<filhos.size(); a++) {
+    		NóTree temp = new NóTree(filhos.get(a));
+            System.out.print(temp.getNome()+", ");
+            if (temp.getPar()!=null) System.out.println("casado/a com "+temp.getPar()+", ");
+    	    if (temp.getFilhos()!=null) imprimir(temp.getFilhos());
+    	}
+    	}
 }
